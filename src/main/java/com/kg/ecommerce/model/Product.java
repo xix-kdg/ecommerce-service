@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private String name;
     private String description;
     private String brand;
@@ -23,28 +23,28 @@ public class Product {
     private BigDecimal price;
     private Integer quantity;
     private LocalDateTime createdAt;
-    private boolean isAvailable;
+    private Boolean isAvailable;
 
     public Product() {
     }
 
     public Product(
             String name,
-            int id,
+            Integer id,
             String description,
             String brand,
-            String categoryId,
+            String category,
             String imageUrl,
             BigDecimal price,
-            int quantity,
+            Integer quantity,
             LocalDateTime createdAt,
-            boolean isAvailable
+            Boolean isAvailable
     ) {
         this.name = name;
         this.id = id;
         this.description = description;
         this.brand = brand;
-        this.category = categoryId;
+        this.category = category;
         this.imageUrl = imageUrl;
         this.price = price;
         this.quantity = quantity;
@@ -56,7 +56,7 @@ public class Product {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -84,12 +84,12 @@ public class Product {
         this.brand = brand;
     }
 
-    public String getCategoryId() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategoryId(String categoryId) {
-        this.category = categoryId;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getImageUrl() {
@@ -100,19 +100,11 @@ public class Product {
         this.imageUrl = imageUrl;
     }
 
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
     public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPricing(BigDecimal price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
@@ -136,8 +128,8 @@ public class Product {
         return isAvailable;
     }
 
-    public void setAvailable(boolean available) {
-        isAvailable = available;
+    public void setAvailable(Boolean isAvailable) {
+        this.isAvailable = isAvailable;
     }
 
     @Override
