@@ -1,21 +1,27 @@
 package com.kg.ecommerce.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Component
+@Entity
 public class Product {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     private String description;
     private String brand;
-    private String categoryId;
-
+    private String category;
     private String imageUrl;
-    private double averageRating;
-    private int reviewCount;
-
+    private BigDecimal price;
+    private Integer quantity;
     private LocalDateTime createdAt;
     private boolean isAvailable;
 
@@ -29,8 +35,8 @@ public class Product {
             String brand,
             String categoryId,
             String imageUrl,
-            double averageRating,
-            int reviewCount,
+            BigDecimal price,
+            int quantity,
             LocalDateTime createdAt,
             boolean isAvailable
     ) {
@@ -38,10 +44,10 @@ public class Product {
         this.id = id;
         this.description = description;
         this.brand = brand;
-        this.categoryId = categoryId;
+        this.category = categoryId;
         this.imageUrl = imageUrl;
-        this.averageRating = averageRating;
-        this.reviewCount = reviewCount;
+        this.price = price;
+        this.quantity = quantity;
         this.createdAt = createdAt;
         this.isAvailable = isAvailable;
     }
@@ -79,11 +85,11 @@ public class Product {
     }
 
     public String getCategoryId() {
-        return categoryId;
+        return category;
     }
 
     public void setCategoryId(String categoryId) {
-        this.categoryId = categoryId;
+        this.category = categoryId;
     }
 
     public String getImageUrl() {
@@ -94,20 +100,28 @@ public class Product {
         this.imageUrl = imageUrl;
     }
 
-    public double getAverageRating() {
-        return averageRating;
+    public String getCategory() {
+        return category;
     }
 
-    public void setAverageRating(double averageRating) {
-        this.averageRating = averageRating;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
-    public int getReviewCount() {
-        return reviewCount;
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public void setReviewCount(int reviewCount) {
-        this.reviewCount = reviewCount;
+    public void setPricing(BigDecimal price) {
+        this.price = price;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -133,10 +147,10 @@ public class Product {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", brand='" + brand + '\'' +
-                ", categoryId='" + categoryId + '\'' +
+                ", category='" + category + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
-                ", averageRating=" + averageRating +
-                ", reviewCount=" + reviewCount +
+                ", price=" + price +
+                ", quantity=" + quantity +
                 ", createdAt=" + createdAt +
                 ", isAvailable=" + isAvailable +
                 '}';
