@@ -1,5 +1,6 @@
 package com.kg.ecommerce.controller;
 
+import com.kg.ecommerce.constant.ApiRoutes;
 import com.kg.ecommerce.model.Product;
 import com.kg.ecommerce.service.ProductService;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +11,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping(ApiRoutes.Products.BASE)
 public class ProductController {
 
     final ProductService service;
@@ -55,7 +56,7 @@ public class ProductController {
         service.deleteProduct(id);
     }
 
-    @GetMapping("/products/search")
+    @GetMapping(ApiRoutes.Products.SEARCH)
     public ResponseEntity<List<Product>> searchProducts(@RequestParam("keyword") String keyword) {
         return ResponseEntity.ok(service.searchProducts(keyword));
     }
