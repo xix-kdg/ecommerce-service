@@ -22,7 +22,7 @@ public class ProductController {
 
     public static final String SEARCH_REQUEST_PARAM = "keyword";
 
-    @GetMapping("/products")
+    @GetMapping(ApiRoutes.Products.PRODUCTS)
     public ResponseEntity<List<Product>> getProducts() {
         return ResponseEntity.ok(service.getProducts());
     }
