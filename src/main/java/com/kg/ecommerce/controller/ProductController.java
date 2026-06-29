@@ -1,7 +1,6 @@
 package com.kg.ecommerce.controller;
 
 import com.kg.ecommerce.model.Product;
-import com.kg.ecommerce.repository.ProductRepository;
 import com.kg.ecommerce.service.ProductService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,11 +14,9 @@ import java.util.List;
 public class ProductController {
 
     final ProductService service;
-    private final ProductRepository productRepository;
 
-    public ProductController(ProductService service, ProductRepository productRepository) {
+    public ProductController(ProductService service) {
         this.service = service;
-        this.productRepository = productRepository;
     }
 
     @GetMapping("/products")
@@ -60,10 +57,6 @@ public class ProductController {
 
     @GetMapping("/products/search")
     public ResponseEntity<List<Product>> searchProducts(@RequestParam("keyword") String keyword) {
-        if (keyword == null || keyword.trim().isEmpty()) {
-            return ResponseEntity.ok(productRepository.findAll());
-        }
-
-        return ResponseEntity.ok(productRepository.searchProducts(keyword));
+        return ResponseEntity.ok(service.searchProducts(keyword));
     }
 }

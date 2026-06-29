@@ -39,4 +39,11 @@ public class ProductService {
     public void deleteProduct(int id) {
         productRepository.deleteById(id);
     }
+
+    public List<Product> searchProducts(String keyword) {
+        if (keyword == null || keyword.trim().isEmpty()) {
+            return productRepository.findAll();
+        }
+        return productRepository.searchProducts(keyword);
+    }
 }
