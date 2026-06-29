@@ -1,47 +1,53 @@
 package com.kg.ecommerce.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Component
+@Entity
 public class Product {
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private String name;
     private String description;
     private String brand;
-    private String categoryId;
-
+    private String category;
     private String imageUrl;
-    private double averageRating;
-    private int reviewCount;
-
+    private BigDecimal price;
+    private Integer quantity;
     private LocalDateTime createdAt;
-    private boolean isAvailable;
+    private Boolean isAvailable;
 
     public Product() {
     }
 
     public Product(
             String name,
-            int id,
+            Integer id,
             String description,
             String brand,
-            String categoryId,
+            String category,
             String imageUrl,
-            double averageRating,
-            int reviewCount,
+            BigDecimal price,
+            Integer quantity,
             LocalDateTime createdAt,
-            boolean isAvailable
+            Boolean isAvailable
     ) {
         this.name = name;
         this.id = id;
         this.description = description;
         this.brand = brand;
-        this.categoryId = categoryId;
+        this.category = category;
         this.imageUrl = imageUrl;
-        this.averageRating = averageRating;
-        this.reviewCount = reviewCount;
+        this.price = price;
+        this.quantity = quantity;
         this.createdAt = createdAt;
         this.isAvailable = isAvailable;
     }
@@ -50,7 +56,7 @@ public class Product {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -78,12 +84,12 @@ public class Product {
         this.brand = brand;
     }
 
-    public String getCategoryId() {
-        return categoryId;
+    public String getCategory() {
+        return category;
     }
 
-    public void setCategoryId(String categoryId) {
-        this.categoryId = categoryId;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getImageUrl() {
@@ -94,20 +100,20 @@ public class Product {
         this.imageUrl = imageUrl;
     }
 
-    public double getAverageRating() {
-        return averageRating;
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public void setAverageRating(double averageRating) {
-        this.averageRating = averageRating;
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
-    public int getReviewCount() {
-        return reviewCount;
+    public Integer getQuantity() {
+        return quantity;
     }
 
-    public void setReviewCount(int reviewCount) {
-        this.reviewCount = reviewCount;
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -122,8 +128,8 @@ public class Product {
         return isAvailable;
     }
 
-    public void setAvailable(boolean available) {
-        isAvailable = available;
+    public void setAvailable(Boolean isAvailable) {
+        this.isAvailable = isAvailable;
     }
 
     @Override
@@ -133,10 +139,10 @@ public class Product {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", brand='" + brand + '\'' +
-                ", categoryId='" + categoryId + '\'' +
+                ", category='" + category + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
-                ", averageRating=" + averageRating +
-                ", reviewCount=" + reviewCount +
+                ", price=" + price +
+                ", quantity=" + quantity +
                 ", createdAt=" + createdAt +
                 ", isAvailable=" + isAvailable +
                 '}';

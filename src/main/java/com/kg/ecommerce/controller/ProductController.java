@@ -1,12 +1,17 @@
 package com.kg.ecommerce.controller;
 
+import com.kg.ecommerce.constant.ApiRoutes;
 import com.kg.ecommerce.model.Product;
 import com.kg.ecommerce.service.ProductService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
+@RequestMapping(ApiRoutes.Products.BASE)
 public class ProductController {
 
     final ProductService service;
@@ -15,28 +20,46 @@ public class ProductController {
         this.service = service;
     }
 
-    @GetMapping("/api/products")
-    public List<Product> getProducts() {
-        return service.getProducts();
+    public static final String SEARCH_REQUEST_PARAM = "keyword";
+
+    @GetMapping("/products")
+    public ResponseEntity<List<Product>> getProducts() {
+        return ResponseEntity.ok(service.getProducts());
     }
 
-    @GetMapping("/api/products/{id}")
-    public Product getProductsById(@PathVariable int id) {
-        return service.getProductById(id);
+    @GetMapping("/products/{id}")
+    public ResponseEntity<Product> getProductById(@PathVariable int id) {
+        return ResponseEntity.ok(service.getProductById(id));
     }
 
-    @PostMapping("/api/product")
-    public void addProduct(@RequestBody Product product) {
-        service.addProduct(product);
+    @PostMapping("/product")
+    public ResponseEntity<?> addProduct(@RequestBody Product product) {
+        try {
+            Product addedProduct = service.addProduct(product);
+
+            URI location = ServletUriComponentsBuilder
+                    .fromCurrentRequest()
+                    .path("/{id}")
+                    .buildAndExpand(addedProduct.getId())
+                    .toUri();
+            return ResponseEntity.created(location).body(addedProduct);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
-    @PutMapping("/api/product")
+    @PutMapping("/product")
     public void updateProduct(@RequestBody Product product) {
         service.updateProduct(product);
     }
 
-    @DeleteMapping("/api/product/{id}")
+    @DeleteMapping("/products/{id}")
     public void deleteProduct(@PathVariable int id) {
         service.deleteProduct(id);
+    }
+
+    @GetMapping(ApiRoutes.Products.SEARCH)
+    public ResponseEntity<List<Product>> searchProducts(@RequestParam(SEARCH_REQUEST_PARAM) String keyword) {
+        return ResponseEntity.ok(service.searchProducts(keyword));
     }
 }
