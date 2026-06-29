@@ -20,6 +20,8 @@ public class ProductController {
         this.service = service;
     }
 
+    public static final String SEARCH_REQUEST_PARAM = "keyword";
+
     @GetMapping("/products")
     public ResponseEntity<List<Product>> getProducts() {
         return ResponseEntity.ok(service.getProducts());
@@ -57,7 +59,7 @@ public class ProductController {
     }
 
     @GetMapping(ApiRoutes.Products.SEARCH)
-    public ResponseEntity<List<Product>> searchProducts(@RequestParam("keyword") String keyword) {
+    public ResponseEntity<List<Product>> searchProducts(@RequestParam(SEARCH_REQUEST_PARAM) String keyword) {
         return ResponseEntity.ok(service.searchProducts(keyword));
     }
 }
