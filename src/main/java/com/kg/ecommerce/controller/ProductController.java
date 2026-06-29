@@ -50,8 +50,9 @@ public class ProductController {
     }
 
     @PutMapping(ApiRoutes.Products.PRODUCT)
-    public void updateProduct(@RequestBody Product product) {
-        service.updateProduct(product);
+    public ResponseEntity<?> updateProduct(@RequestBody Product product) {
+        Product updatedProduct = service.updateProduct(product);
+        return ResponseEntity.ok(updatedProduct);
     }
 
     @DeleteMapping(ApiRoutes.Products.PRODUCTS_ID)
