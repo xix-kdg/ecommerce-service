@@ -104,4 +104,61 @@ public class ProductRepositoryTest {
         Optional<Product> foundProduct = productRepository.findById(savedProduct.getId());
         assertThat(foundProduct).isEmpty();
     }
+
+    // Search Products Tests
+    @Test
+    void shouldSearchProductsByName() {
+        // Given
+        Product product = ProductTestData.createNewProduct();
+        productRepository.save(product);
+
+        // When
+        List<Product> results = productRepository.searchProducts("AeroStream");
+
+        // Then
+        assertThat(results).hasSize(1);
+        assertThat(results.getFirst().getName()).isEqualTo(product.getName());
+    }
+
+    @Test
+    void shouldSearchProductsByBrand() {
+        // Given
+        Product product = ProductTestData.createNewProduct();
+        productRepository.save(product);
+
+        // When
+        List<Product> results = productRepository.searchProducts("Sonic");
+
+        // Then
+        assertThat(results).hasSize(1);
+        assertThat(results.getFirst().getBrand()).isEqualTo(product.getBrand());
+    }
+
+    @Test
+    void shouldSearchProductsByCategory() {
+        // Given
+        Product product = ProductTestData.createNewProduct();
+        productRepository.save(product);
+
+        // When
+        List<Product> results = productRepository.searchProducts("Electronics");
+
+        // Then
+        assertThat(results).hasSize(1);
+        assertThat(results.getFirst().getCategory()).isEqualTo("Electronics");
+    }
+
+    @Test
+    void shouldSearchProductsByDescription() {
+        // Given
+        Product product = ProductTestData.createNewProduct();
+        productRepository.save(product);
+
+        // When
+        List<Product> results = productRepository.searchProducts("Headphones");
+
+        // Then
+        assertThat(results).hasSize(1);
+        assertThat(results.getFirst().getDescription()).contains(product.getDescription());
+    }
 }
