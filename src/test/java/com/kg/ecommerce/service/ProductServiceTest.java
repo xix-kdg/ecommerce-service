@@ -38,7 +38,7 @@ public class ProductServiceTest {
     @Test
     void shouldReturnAllProducts() {
         // Given
-        List<Product> mockProducts = ProductTestData.createProductList();
+        List<Product> mockProducts = ProductTestData.createDefaultProductList();
         when(productRepository.findAll()).thenReturn(mockProducts);
 
         // When
@@ -209,7 +209,7 @@ public class ProductServiceTest {
     void shouldCallSearchProductsRepositoryWhenQueryIsNotEmpty() {
         // Given
         String keyword = "Wireless";
-        List<Product> mockProductList = ProductTestData.createProductList();
+        List<Product> mockProductList = ProductTestData.createDefaultProductList();
         when(productRepository.searchProducts(keyword)).thenReturn(mockProductList);
 
         // When
@@ -243,7 +243,7 @@ public class ProductServiceTest {
     void shouldSearchForProductsWithSpecialCharactersInKeyword() {
         // Given
         String keyword = "Product-2024@";
-        List<Product> mockProducts = ProductTestData.createProductList();
+        List<Product> mockProducts = ProductTestData.createDefaultProductList();
         when(productRepository.searchProducts(keyword)).thenReturn(mockProducts);
 
         // When
