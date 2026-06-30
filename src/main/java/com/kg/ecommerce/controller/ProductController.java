@@ -21,25 +21,26 @@ public class ProductController {
     }
 
     public static final String SEARCH_REQUEST_PARAM = "keyword";
+    public static final String PATH_ID = "/{id}";
 
-    @GetMapping("/products")
+    @GetMapping(ApiRoutes.Products.PRODUCTS)
     public ResponseEntity<List<Product>> getProducts() {
         return ResponseEntity.ok(service.getProducts());
     }
 
-    @GetMapping("/products/{id}")
+    @GetMapping(ApiRoutes.Products.PRODUCTS_ID)
     public ResponseEntity<Product> getProductById(@PathVariable int id) {
         return ResponseEntity.ok(service.getProductById(id));
     }
 
-    @PostMapping("/product")
+    @PostMapping(ApiRoutes.Products.PRODUCT)
     public ResponseEntity<?> addProduct(@RequestBody Product product) {
         try {
             Product addedProduct = service.addProduct(product);
 
             URI location = ServletUriComponentsBuilder
                     .fromCurrentRequest()
-                    .path("/{id}")
+                    .path(PATH_ID)
                     .buildAndExpand(addedProduct.getId())
                     .toUri();
             return ResponseEntity.created(location).body(addedProduct);
@@ -48,12 +49,13 @@ public class ProductController {
         }
     }
 
-    @PutMapping("/product")
-    public void updateProduct(@RequestBody Product product) {
-        service.updateProduct(product);
+    @PutMapping(ApiRoutes.Products.PRODUCT)
+    public ResponseEntity<?> updateProduct(@RequestBody Product product) {
+        Product updatedProduct = service.updateProduct(product);
+        return ResponseEntity.ok(updatedProduct);
     }
 
-    @DeleteMapping("/products/{id}")
+    @DeleteMapping(ApiRoutes.Products.PRODUCTS_ID)
     public void deleteProduct(@PathVariable int id) {
         service.deleteProduct(id);
     }
