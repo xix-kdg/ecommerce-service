@@ -51,7 +51,7 @@ public class ProductControllerTest {
     @Test
     void shouldReturnAllProductsWithHttpOk() throws Exception {
         // Given
-        List<Product> products = ProductTestData.createProductList();
+        List<Product> products = ProductTestData.createDefaultProductList();
         when(productService.getProducts()).thenReturn(products);
 
         // When & Then
@@ -78,7 +78,7 @@ public class ProductControllerTest {
     @Test
     void shouldReturnMultipleProducts() throws Exception {
         // Given
-        List<Product> products = ProductTestData.createProductList();
+        List<Product> products = ProductTestData.createDefaultProductList();
         when(productService.getProducts()).thenReturn(products);
 
         // When & Then
